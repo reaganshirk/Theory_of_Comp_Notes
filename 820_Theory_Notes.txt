@@ -1,0 +1,33 @@
+* Three different areas in theory of computation
+	* automata (1)
+	* computational complexity (3)
+	* computability (2)
+* What are the fundamental capabilities and limitations of computers? Basic question that we want to answer
+* Computational complexity
+	* How easy or hard a particular problem is
+		* easy: finding shortest path in a graph, sorting
+		numbers in an array
+		* difficult: TSP, scheduling classes based on various
+		specifications
+* What kind of properties make a particular problem easy or hard?
+	* Who tf knows fam
+	* Maybe we don't have all of the answers but at least we try
+	to classify problems into different groups based on level of
+	difficulty
+		* Maybe both are easy, but which one is easier?
+		Same for hard.
+* Big O, Big Omega
+	* Sorting using comparisons
+	* Lower bound: Omega(nlogn) where n is the dimension of the
+	array
+	* Easy for this class: polynomial time and space
+* Computability Theory (different from computational theory)
+	* Asks more basic question: whether a particular problem is
+	solvable or not
+		* Not everything is solvable
+* Automata
+	* Basic definitions and properites of mathematical models of
+	computation 
+	* Applications include regular languages and string
+	matching, compilers, grammars with applications to program
+	languages/AI. All finite state machines
