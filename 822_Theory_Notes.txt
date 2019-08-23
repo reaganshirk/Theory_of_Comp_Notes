@@ -1,0 +1,94 @@
+* Math definitions and terms
+	* Set: A collection of elements
+		* i.e. {1, 2, 5} ?= {1, 2, 2, 5}, yes they are the
+		same. The order does not matter
+		* Finite set
+		* Infinite set: all even numbers, all integers, all
+		real numbers, etc
+		* The empty set: {} or O with a slash
+		* Powerset of set A: the set containing every subset
+		of A
+			* i.e. A = {a, b}, P(A) = {{}, {a}, {b}, {a, b}}
+		* B is a subset of A: for every x in B, x is also in A
+			* Every set is a subset of itself
+		* If A has k elements, the powerset of A has 2^k
+		elements
+			* Number of ways in which we can select
+			some of the k elements
+	* Sequences and Tuples
+		* A sequence is an ordered list of elements
+		* We put it inside parentheses
+			* i.e. (1,2,5) ?= (1, 2, 2, 5), no they are
+			different
+		* Finite sequences: tuples
+		* Infinite sequences
+		* A k-tuple is a sequence of k elements
+			* A 2-tuple is called a pair
+	* Cartesian Product of Two Sets
+		* C = A x B is a cross product of A and B
+			* i.e. A = {a, b}, B = {1, 2, 3}, C = A x B
+			= {(a, 1), (a, 2), (a, 3), (b, 1), (b, 2), (b,3)}
+		* Question: (2, a) belong to C?
+			* No. Order matters. One is x coordinate, other
+			is y coordinate
+		* A^k = A x A x A ... x A k times
+	* Functions
+		* A function f: D -> R has domain D and range R
+		* f(a) is the same value no matter how many times we
+		ask f
+		* Onto: covers everything in the range at least once
+		* One to one: if a != b --> f(a) != f(b)
+		* Bijection: one to one and onto
+		* Injection: onto
+		* Surjection: one to one
+		* Arity: the arity of f is the number of inputs f
+		takes, 'arguments'
+	* Predicates/relations
+		* A predicate or relation is a function whose range is
+		{TRUE, FALSE}
+			* Prefix and infix notation
+				* i.e. 3 < 5 --> infix notation of less
+				than relation, 
+				aRb --> infix notation, 
+				R(a, b) --> prefix notation
+		* Propterties of relations
+			* symmetric relations, if aRb then bRa
+			* reflexive relations, aRa
+			* transitive relations, if xRy and yRz, then xRz
+	* Graphs
+		* A set of points (nodes, verticies) and a set of
+		edges connecting the points.
+			* order matters for a directed graph, does not
+			matter for an undirected graph
+			* directed graphs: for automata
+			* undirected graphs: we will mostly work here in
+			computational complexity
+		* G = (V, E) where G is the graph, V are the
+		verticies, E are the edges	
+		* A path is a list of nodes connected by edges
+		* Simple path: a path with no repeated nodes
+		* Connected graphs: a graph with a path from one point
+		to any other point
+		* Strongly connected graphs: a graph with a path in
+		both directions from one point to any other point
+		* Cycle: a path that starts and ends on the same node
+		* Tree: a graph without cycles
+* Strings and Languages
+	* A tuple/sequence of characters
+	* Characters are elements of an alphabet
+		* i.e. binary alphabet {0, 1}, 00110 is a string using
+		the alphabet {0, 1}
+	* A language L over an alphabet E. L is a set of strings
+	over the alphabet E. For our purposes, this type of set will
+	always be finite.
+	* w is a string in L, w = w1, w2, w3, ... , wk where its wi
+	is a symbol/character in E. The length of w is going to be
+	|w|= k.
+	* The reverse of w is w^R = wk, wk-1, ... , w2, w1
+	* Substring of w is a sequence of characters in w
+	* Concatination of two strings: x and y are strings.
+	w = x o y = x1x2...xny1y2...ym. Take one string and append
+	the other one
+* Boolean logic
+	* and, not, or, xor... truth tables. I think we all know how
+	to do this.
