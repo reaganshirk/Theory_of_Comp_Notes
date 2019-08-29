@@ -1,0 +1,111 @@
+* Boolean Logic
+	* AND, OR, XOR, NOT, -->, <-->
+
+	A	B	A and B	A --> B	A <--> B
+	F	F	F		T		T
+	F	T	F		T		F
+	T	F	F		F		F
+	T	T	T		T		T
+
+	* When two functions are different it means that they're
+	outputs are different. 
+		* i.e. AND should have at least one different output
+		than OR
+	* For A <--> B, when A is F and B is T, read from right to
+	left. When A is T and B is F, read from left to right. 
+		* i.e. start reading with the one that is false
+	* A is a subset of B: for every x, if x belongs to A then
+	x also belongs to B
+	* 16 functions of 2 Boolean variables (2^4, you have four
+	combinations of 2)
+		* 4 rows of the truth table and 2 options for each row
+	* How many boolean functions do we have on n boolean
+	variables?
+		* 2^(2^n)
+* Distributive Laws
+	* a (b + c) = (a + b)(a + c)
+	* P and (Q or R) = (P and Q) or (P and R)
+	* P or (Q and R) = (P or Q) and (P or R)
+* Regular Languages
+	* As characters are read, they start following arrows from
+	the diagram given in class into different states
+		* If it's a 0, it stays in q1. Once a 1 is read, it
+		goes to q2. If it's a 1, it stays in q2. If it's a 0,
+		it goes to q3. q3 goes back to q2 for both 0 and 1.
+			* Example Strings
+				* 00001 --> accepted
+				* 1001 --> accepted
+				* 0 --> rejected
+				* lambda --> rejected
+		* The empty string: lambda
+* Finite Automaton
+	* Specified by a 5-tuple
+		* Q, sigma, delta, q_o, F
+			* Q = finite set of states
+			* sigma = finite alphabet
+			* delta = Q x sigma --> Q (transition function)
+			* q_o = starting state
+			* F = set of accepting states
+	* The language of M is L(M) = A, and that is the set of all
+	strings accepted by m. 
+	* We can also say that M recognizes A or M accepts A
+	* In our example...
+		* W ends with 1, ends with even number of 0s provided
+		that you have at least one 1.  
+	* Language A = {w that belongs to {0, 1}* | w has an even
+	number of 0's}
+		* the star after {0, 1} means that you can concatenate
+		as many functions (characters? I can't remember) as
+		you want
+		* Two states, expressing the parity of 0's. 
+			* if the character is 1, it stays in q even. If
+			it is 0 it goes to q odd. If it is 1 it stays in
+			q odd, if it is 0 it goes to q even. 
+		* As a 5-tuple
+			* ({qeven, eodd, {0,1}, delta, qeven, {qodd})
+			where delta:
+			state		symbol	state
+			qeven		0		qodd
+			qodd		1		qeven
+			qeven		0		qeven
+			qodd		1		qodd
+
+			delta		0		1
+			qeven		qodd		qeven
+			qodd		qeven		qodd
+	* Language B = {w | w ends in a 1 or w = lambda}
+		* If it is a 1, it stays in q1. If it is a 0, it goes
+		to q2. If it is a 0 it stays in q2, if it is a 1 it
+		goes to q1
+	* Language C = {w | w starts with and ends with a 0 or
+	starts with and ends with a 1}
+		* Need 5 states. If q1 reads a zero it goes to q2, if
+		q1 reads a 1 it goes to q3. If q2 reads a 0 it stays
+		where it is. If it reads a 1 it goes to q4. If q4
+		reads a 1 it stays where it is, if it reads a 0 it
+		goes back to q2. If q3 reads a 1 it stays where it is.
+		If it reads a 0 it goes to q5. If q5 reads a 0 it
+		stays where it is, if it reads a 1 it goes back to q3
+* Computation
+	* Formal definition: Let M = (Q, sigma, delta, q_o, F) be a
+	finite automaton. Let w = w_1, w_2, ... , w_n be a string,
+	where each w_i is a member of sigma (in other words, this
+	is a valid string). Then M accepts w if there is a sequence
+	of states r_o, r_1, r_2,..., r_n in Q such that:
+		* r_o = q_o
+		* r_i+1 = delta(r_i, w_i+1), for i in {0,1,2,... n-1}
+		* r_n is in F
+* Regular Languages
+	* A language is called regular if there is some automaton
+	that recognizes it
+* Regular Operators
+	* Let A and B be languages. We define the regular operators
+	union, concatenation, star as follows:
+		* Union: A union B = {w | w is in A or w is in B}
+		* Concatentation: A concatenate B = {w=xy|x belongs to
+		A and y belongs to B} 
+		* Star: A* = {w_1, w_2,...,w_k | w_i belongs to A and
+		k is an integer that can be 0}
+* Theorem: The class of regular languages is closed under the
+union operation. In other words, if A_1 and A_2 are regular
+languages, then so is A_1 union A_2
