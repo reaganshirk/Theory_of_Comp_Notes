@@ -1,0 +1,66 @@
+* Something about LaTeX
+	* It's pronounced latec, not latex. Fun stuff.
+	* tutorial on how to compile a latex document and output to 
+	a pdf
+	* information can also be found on 
+	https://www3.nd.edu/~kogge/courses/cse30151-
+	fa17/Public/other/tikz_tutorial.pdf
+	* Sorry for the bad notes for this, I do latex through 
+	RStudio so I didn't super pay attention
+* To anyone who actually looks at my notes, pls stop talking (or
+get your friends to stop talking) during lecture, ya girl has
+tinnitus and can't hear shit :)
+* Formal definition for NFAs
+	* An NFA (nondeterministic finite automaton/accepter) is
+	defined by the 5-tuple (Q, sigma, delta, qo, F) where Q is
+	a finite set of states, sigma is a finite alphabet, qo is a
+	starting state, F is a set of accepting states, and delta is
+	a transition state equal to Q x sigma union {lambda}-->P(Q) 
+	* Q, sigma, qo, and F are all the same as DFAs
+		* delta: Q x sigma --> Q is the case for DFAs 
+* NFA Example, Sigma sub lambda = {0, 1, lambda}
+	* q1
+		* if 0, 1 stay
+		* if 1 go to q2
+	* q2
+		* if 0 lambda go to q3
+	* q3
+		* if 1 go to q4
+	* q4
+		* if 0, 1 stay
+		* accepting date
+	* If someone could help me understand how to come up with
+	the accepted string based on the state diagram I'd really
+	appreciate it, just dm me on GroupMe or something
+	* If N = the state diagram, we can define N as
+		* ({q1, q2, q3, q4}, {0, 1}, delta, q1, {q4})
+		where delta is:
+			0	1			lambda
+		q1	{q1}	{q1, q2, q3}	{}
+		q2	{q3}	{}			{q1}
+		q3	{}	{q4}			{}
+		q4	{q4}	{q4}			{}
+		* As long as you consume the lambdas consistently you
+		don't have to...organize? I can't hear lol
+* 15 minutes left in class: "I'm going to start a proof and we'll
+see if we can finish the proof today"
+	* If this proof takes longer than 15 minutes I don't think I
+	want to do it
+* Proof
+	* Definition: Two machines are equivalent iff they recognize
+	the same language. In other words: (L(M1) = L(M2))
+	* Theorem: Every NFA has an equivalent DFA 
+	* Proof idea: Create DFA M that simulates the behavior of
+	the NFA N. At any point in time we need to keep track on M
+	all of the states where N is currently at. (N has a copy of
+	itself in one of these states) All we need to do is to
+	define the 5-tuple 
+	* Actual proof:
+		* Assume for now as lambda transitions
+			* Qm = P(Qn)
+				* We need one state in M for every one of
+				the 2^Q subsets in N
+			* sigmam = sigman
+			* qom = qon
+			* Fm = {R belongs to P(Q) | there exists an r in
+			R and r is an accepting state (belongs to Fn)}
