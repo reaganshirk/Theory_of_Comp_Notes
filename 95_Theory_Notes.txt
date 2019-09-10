@@ -1,0 +1,110 @@
+* Induction Review
+	* Need a base case
+		* Prove that the base case is true for the smallest
+		possible value of the parameter, say k
+		(in homework it was k = 4)
+		* Assume true for all of the base case parameter 
+		(k = n)
+			* This is the induction hypothesis
+		* Show that it is true for k = n + 1
+			* This is the induction step
+	* Example Overview
+		* Prove the claim for k = 1
+			* this is the base case
+		* Assume everything is true for k = n such that n is
+		at least 1
+			* This is the induction hypothesis
+		* Prove everything is true for k = n + 1
+			* Induction step
+	* Example
+		* Prove by induction on n /geq 1 that the sum of i
+		from i = 1 to n equals n*(n+1) / 2
+		* Base case
+			* n = 1, by substitution 1*(1+1) / 2 = 1 --> true
+		* Induction hypothesis
+			* Assume this is true for n = k /geq 1
+			* This means that it is indeed true that the
+			sum of i from i = 1 to k equals k(k+1)/2
+		* Induction step
+			* We want to prove that this is true for n=k+1
+			* Proof
+				* The sum of every i from i = 1 to k+1 is
+				1 + 2 + 3 + ... + k + k+1
+				* The sum of 1 up to k is equal to the sum
+				of i from i = 1 to k
+				* The equation then says that the sum of i
+				from i = 1 to k + 1 equals the sum of i
+				from i = 1 to k plus k + 1
+				* This means that k*(k+1)/2 + (k+1) is
+				equal to the sum of i from i = 1 to k + 1
+				* This gives us (k^2 + k)/2 + (2k+2)/2
+				* That reduces to (k^2+3k+2)/2, we want
+				this to equal (k+1)(k+2)/2 which it does
+				* Therefore the claim actually holds for
+				n = k + 1 and therfore the claim is true
+				for every integer in such that n /geq 1
+	* Full induction
+		* Sometimes in step 2 (induction hypothesis), we may
+		need to assume that the claim is true for every n that
+		belongs to {1, 2, 3, ... , k}, not just n = k.
+* Who invented LaTeX?
+	* It sounded like someone said Newt? I'm deaf as shit.
+	* Wikipedia says Leslie Lamport
+* S = 1 + 2 + 3 + ... + 100
+	* S = 100 + 99 + 98 + ... + 1
+	* 2*S = (101)+(101)+...+(101)
+	* 2*S = 100*101
+	* S = (100*101)/2 
+	* S = 5050
+		* Apparently this is a proof Euler did when he was a
+		wee boy. I think we were shown this so we could know
+		that induction isn't always the best option but it 
+		really just made me feel kinda stupid.
+		* Controversy: it might have actually been Gauss.
+* S = 1 + 2 + 4 + 8 + 16 + ... + 2^k
+	* 2^k+1 = S + 1 --> S = 2^(k+1) - 1
+* S = 1 + x + x^2 + x^3 + ... + x^k
+	* xS = x + x^2 + x^3 + ... + x^k + x^k+1
+	* if x > 1
+		* xS - S = x^k+1 - 1
+		* S = (x^(k+1) - 1)/x-1
+	* if 0 < x < 1
+		* S - xS = 1 - x^k+1
+		* S = 1 - (x^k+1)/(1-x)
+* Continuation of proof from 9/3
+	* Theorem: Any NFA N has an equivalent DFA M
+	* Talked about proof idea: M has one state for every subset
+	of states that may appear in the computation tree for N.
+	* Proof
+		* Define the 5-tuple for M, start with the states
+			* QM = P(QN)
+			* SigmaM = SigmaN
+			* qo,M = {qo,M}
+			* FM = {all of the states (R) that belong to QM
+			or all of the states that belong to P(QN)}
+			* On a symbol a that belongs to Sigma,
+			DeltaM(R,a) = the union of DeltaN(r, a) where r
+			is in R. Output is a set
+		* Now take into account the lambda transitions
+			* For R in QM:
+				* LAMBDA = capital lambda
+				* lambda = lowercase lambda (empty string)
+				* LAMBDA(R) = {q in QN | q is reached from
+				R by travelling across zero, one, or
+				multiple lambda-arrows}
+		* So...
+			* DeltaM(R, a) = {q in QN | q in
+			LAMBDA(DeltaN(r,a) for some r in R}
+			* DeltaM(R, a) = union of LAMBDA(DeltaN(r,a)) for
+			some r in R
+		* Finally: qo,M = LAMBDA({qo,N})
+		* Corollary: A language is regular iff it can be
+		accepted by an NFA
+		* Question
+			(a) R is a subset of LAMBDA(R)
+				* It's this one ^^
+			(b) LAMBDA(R) is a subset of R
+			(c) Who tf knows
+	* For NFAs
+		* DeltaN = QN x Sigma --> P(QN)
+	* Any DFA is an NFA but not vice versa
