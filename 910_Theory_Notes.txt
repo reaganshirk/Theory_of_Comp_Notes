@@ -1,0 +1,117 @@
+* Example (NFA to DFA)
+	* 3 States: state 1, state 2, state 3
+		* State 1 is accepting. If it's b, it moves to state 2
+		If it's lambda, it moves to state 3
+		* State 2 stays if it's a, if it's a or b it moves to
+		3
+		* State 3 moves to state 1 if it's a
+	* Equivalent DFA M
+		* QM = {{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1,
+		2, 3}}
+		* One state for every set listed in QM	
+		* Accepting states are any states that include 1.
+		* DFA can only have one starting state. You have to
+		start at {1, 3} because of the lambda transition
+		* {1, 3} has a self loop with a
+		* {1, 3} goes to {2} with a b
+		* {2} goes to {2, 3} with a
+		* {2} goes to {3} with a b
+		* {3} goes to {1, 3} with an a
+		* {3} goes to {} with a b
+			* {} is doing garbage collection
+		* {2, 3} goes to {1, 2, 3} with an a
+		* {2, 3} goes to {3} with a b
+		* {1, 2, 3} does a self loop with an a
+		* {1, 2, 3} goes to {2, 3} with a b
+		* Formally, we still need to look at {1, 2} and {1}
+		because we need the definition. We can look at them
+		and see that we won't need them though because we'll
+		never go to them
+		* {1, 2} goes to {2, 3} with an a
+		* {1, 2} goes to {2, 3} with a b
+		* {1} goes to {} with an a
+		* {1} goes to {2} with a b
+			* Can someone who sees this tell me why {1} goes
+			to {2} with a b and not to {2, 3}?
+	* Language (Sigma) = {a, b} 
+	* qoM = LAMBDA({qoN})
+* Closure under Regular Operations
+	* Concatenation was an issue before we introduced NFAs 
+	* Theorem: The class of regular languages is closed under
+	union. 
+	* Proof Idea: "Guess" the language where the input w belongs
+	to and see if we accept.
+		* Multiple NFAs with one starting state, several
+		intermediate states, and several accepting states.
+		* Pick a starting state outside of either NFA (qo) and
+		go to either NFA in lambda, see which one accepts?
+			* Could have one accepting state outside of the
+			NFAs that accepts all of the accepting states
+			from the NFAs if desired
+	* Proof:
+		* Let N1 = (Q1, Sigma, Delta1, q1, F1)
+		* Let N2 = (Q2, Sigma, Delta2, q2, F2)
+		* Construct N = (Q, Sigma, Detla, qo, F) such that
+			* Q = Q1 union Q2 union {q0}
+			* qo is the starting state for N
+			* F = F1 union F2
+			* Delta(q, a) is:
+				* Delta1(q, a) for q in Q1
+				* Delta2(q, a) for q in Q2
+				* {q1, q2} for q = qo and a = lambda
+				* {} for q = qo and a != lambda
+* Theorem: The class of regular languages is closed under
+concatenation
+* Proof idea: There is an NFA N1 with starting state q1 that
+would normally have a bunch of accepting states and some
+intermediate states. There is an NFA N2 with starting state q1
+with a bunch of accepting states and some intermediate states.
+Ignore the accepting states of N1 and introduce lambda rows to
+the starting state of N2.
+* Proof:
+	* Let N1 = (Q1, Sigma, Delta1, q1, F1)
+	* Let N2 = (Q2, Sigma, Delta2, q2, F2)
+	* Construct N = (Q, Sigma, Delta, qo, F)
+		* Q = Q1 union Q2
+		* qo = q1
+		* F = F2
+		* Sigma = Sigma
+		* Delta(q, a) is:
+			* Delta1(q, a) for q in Q1\F1
+			* Delta2(q, a) for q in Q2
+			* Delta1(q, a) union Q2 for q in F1
+* Theorem: The class of regular languages is closed under the star operation
+	* L1* = {w1, w1, ..., wn | wi is in L1} = union from k = 0
+	to infinity of L^k <-- contains lambda
+	* L1* = {w* | wi is in L1}
+* Proof idea: There is an NFA N1 of L1 with one starting state,
+many accepting states, and some intermediate states. There are
+lambda transitions from each accepting state back to the starting
+state. We need to introduce an artificial accepting/starting
+state that goes to q1 with a lambda. 
+* Proof:
+	* Let N1 = (Q1, Sigma, Delta1, q1, F1)
+	* Construct N = (Q, Sigma, Delta, qo, F) such that:
+		* Q = Q1 union {qo}
+		* Sigma is common (Simga = Sigma)
+		* qo is new starting state
+		* F = F1 union {qo}
+		* Delta(q, a) is:
+			* Delta1(q, a) for q in Q1\F1
+			* Delta1(q, a) union q1 for q in F1
+			* {q1} for q = qo and a = lambda
+			* {} for q = qo and a != lambda
+* Regular Expressions
+	* Example: (0 union 1)0*
+		* The value of a regular expression is a language
+		* 0 union 1 really means {0} union {1} which is {0, 1}
+		* 0* means {0}*
+			* Lambda can be part of this language
+		* (0 union 1)0* that we have is really shorthand for
+		(0 union 1) concatenate with 0*
+	* Examples
+		* (0 union 1)* = {{}, 0, 1, 00, 01, 10, 11, 000, ...}
+		* Sigma = {0, 1}, then {0, 1}* is equal to what is
+		above
+		* Sigma is shorthand for (0 union 1)
+		* Sigma* 1 = binary strings ending in 1
