@@ -1,0 +1,109 @@
+* Second homework will be posted today or tomorrow (17th or 18th)
+will be due on the 24th, 25th, or 26th. Should have grades posted
+by the 30th
+* Oct 1st will be discussion on homework problems, Oct 8th will
+be the first midterm
+
+* What do we really mean by closure? 
+	* We have regular languages such as {0, 1} and something
+	else that I can't even read from the third row
+	* Regular languages lie instide of context-free languages
+	Context-free languages such as L = {0^n1^n | n >= 0}
+	* Context-free languages lie within turing-decidable
+	languages such as L = {0^n1^n2^n | n >= 0}
+		* This is the limit of the kinds of machines we are 
+		capable of developing
+	* Turing-decidable languages lie within turing recognizable
+	languages such as A_{tm} (halting problem) or hilberts 10th
+	problem
+		* Halting problem says that if you have a computer and
+		you give a set of problems/input to that computer, is
+		there something that can tell you if the computer will
+		output, error, hold, etc
+		* Hilberts 10th problem asks about solutions on
+		polynomial equations
+		* Languages for which we can construct some kind of
+		machine that only accepts the "yes" instances- no way
+		of doing it if it accepts the "no" instances
+	* Turing-decidable languages lie within undecidable
+	languages
+		* I'm unbelievably lost right now
+	* Somehow this tells us why closure is important...?
+* Regular expressions
+	* (0 union 1)0* (book uses + instead of union)
+		* Order of operations: like regular math,
+		exponent, product, sum
+* Definition of regular expression
+	* We say that R is a regular expression if R is:
+		* a, for some a in the alphabet
+		* lambda
+		* {}
+		* (R1 + R2), where R1 and R2 are regular expressions
+		* (R1 concatenate R2), ""
+		* R1*, where R1 is a regular expression
+	* Also have notation R^+, not sure if it's part of the above
+	criteria
+		* R^+ = R(R*)
+		* R^+ union {lambda} gives R*, idk why
+* Identities for Regular Expressions
+	* R + empty language = R
+	* R concatenate lambda = R
+	* In principle, R + lambda != R because R may or may not
+	already include lambda
+		* For example, R = 0, then L(R) = {0}. Then
+		R + lambda = {0, lambda}
+	* R concatenate {} != R
+* Equivalence with Finite Automata
+	* Theorem: A language is regular iff a regular expression 
+	describes the language 
+	* Lemma (proof of theorem): if a language is described by a
+	regular expression, then it is regular
+	* Proof idea (also lemma?): Decompose the regular expression
+	(regex) R into smaller pieces and then put those pieces
+	together
+		* Case 1: R = a. NFA: Initial state, with a go to
+		accepting state
+		* Case 2: R = lambda. NFA: initial state is accepting
+		state
+		* Case 3: R = {}. NFA: one state, starting state. No
+		accepting state
+		* Case 4: R1 + R2. NFA: follow from closure of the
+		operation 
+		* Case 5: R1 concatenate R2. NFA: follow from closure
+		of the operation
+		* Case 6: R1*. NFA: follow from closure of the
+		operation 
+* Example
+	* Convert the regex (ab + a)* to an NFA in a sequence of
+	stages
+		* a: starting state, with an a go to the final,
+		accepting state
+		* b: starting state, with a b to go the final,
+		accepting state
+		* ab: starting state, with an a go to a new state,
+		with a lambda go to a new state, with a b go to the
+		final, accepting state
+		* ab + a: starting state, split with lambda go to
+		another state, with a go to another state, with lambda
+		go to another state, with b go to the final, accepting
+		state. With the other split go to a new state with
+		lambda, then a final, accepting state with a
+		* (ab + a)*: Starting and accepting state, go to a new
+		state with lambda. Split into two lambda paths. Top
+		lambda path, go to new state, with a go to new state,
+		with lambda go to new state, with b to go final,
+		accepting state. Accepting state goes back to second
+		state with a lambda. With bottom lambda go to new
+		state, with a go to final, accepting state. Accepting
+		state goes back to second state with a lambda.
+* Example
+	* Convert the regex R + (a + b)*aba into an NFA
+		* a + b: initial state splits into 2 states with
+		lambda, top goes to accepting state with a and bottom
+		goes to accepting state with b
+		* aba: starting state goes to new state with a, goes
+		to new state with lambda, goes to new state with b,
+		goes to new state with lambda, goes to accepting state
+		with a
+		* combine some shit, my brain is dead I'm sorry
+		friends
