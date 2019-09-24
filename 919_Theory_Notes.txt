@@ -1,0 +1,105 @@
+* Started posting his notes online but they're from another class
+so some notation/theorems are different (mainly lambdas are
+replaced with epsilons)
+* Exam was moved from Oct. 8 to Oct. 3 because the OS and
+Algorithms midterms were both on Oct. 8 as well
+* Mistakes in homework assignment were fixed
+
+* Generalized NFAs (GNFA)
+	* A GNFA is an NFA where the arrows may have any regular 
+	expression (instead of symbols or lambda)
+	* A GNFA reads blocks of symbols from input
+	* The GNFA moves along a transition arrow connecting two
+	states by reading a block of symbols (corresponding to the
+	regex along the arrow)
+	* A GNFA being non-deterministic may have multiple ways of
+	processing the same string
+	* Example
+		* initial state qstart and final state qaccept with 
+		two states in between, one on top and one on bottom.
+		* qstart goes to the top state with ab*. That state
+		has a self loop at aa, goes to qaccept with ab + ba
+		* the top state goes to the bottom state with a*, the 
+		bottom state goes to the top state with (aa)*
+		* qstart goes to the bottom state with {}. That state
+		has a self loop with ab and goes to qaccept with b*
+		* qstart goes directly to qaccept with b
+		* What is the value of a regular expression?
+			* A language. A language is a set of strings
+			* How many strings are in {}? 0- not even lambda.
+	* For convenience, we require the following:
+		* The start state has outgoing arrows to all of the
+		other states and no incoming arrows
+		* Only one accepting state that only has arrows coming
+		in, nothing goes out
+		* Accept state != start state
+		* For every state other than the accept or start we
+		have a self loop and one arrow goes to every other
+		state (minus starting)
+	* Last time: regex --> NFA which implies that this is a
+	regular language
+	* This time: Regular language (DFA) --> GNFA --> regex
+* Convert a DFA to a GNFA
+	* New start state with a lambda arrow to the start state of
+	the DFA
+	* One accept state with lambda arrows leading to that state
+	from the accept states of the DFA
+	* Arrows with multiple labels are replaced with a label that
+	is the union of the previous ones
+	* For all the other missing arrows, we add them with the
+	label empty set
+* Construct a GNFA with one state less starting with k > 2 states
+	* Since k > 2, there exists a state qrip (because we're
+	going to rip it up lol) that we can remove and the same
+	language will be recognized
+	* New labels on arrows should never compensate for the
+	absence of qrip (by adding back lost computation)
+	* States qi, qj, and qrip.
+	* Before: qi goes to qrip with R1. qrip has a self loop with
+	R2 and goes to qj with R3. qi goes to qj with R4
+	* After: qi goes to qj with R4 + R1R2*R3
+		* Why is this the after? I have no idea.
+	* Another example
+		* State 1 is starting state and has a self loop with
+		a. With a b it goes to state 2 (accepting state) that
+		has a self loop with a, b
+		* After: Starting state s goes to state 1 with lambda.
+		State 1 has a self loop with an a and goes to state 2
+		with a b. State 2 has a self loop with a + b and goes 
+		to qa, the accepting state, with lambda
+		* We avoid writing down the arrows with labels of the
+		empty set even though they exist
+		* For some reason we're writing the GNFA...again?
+			* Oh, we're removing state 2
+		* Starting state s goes to state 1 with a lambda.
+		State 1 has a self loop with a and goes to the
+		accepting state with {} + b(a+b)*lambda = b(a+b)*
+		* Remove state 1
+		* starting state s goes to accepting state qa with
+		{} + lambda(a*)(b(a+b)*) = a*b(a+b)*
+		* Therefore (finally), the regex that we want is 
+		a*b(a+b)*
+			* The star (*) operator is added from self loops
+* Another example
+	* Starting state 1 goes to accepting state 2 with an a.
+	State 2 has a self loop at b and goes back to state 1 with
+	an a. state 1 goes to accepting state 3 with a b. state 3
+	goes to accepting state 2 with an a and state 1 with a b.
+	* Convert to GNFA: Starting state s goes to state 1 with a
+	lambda. State 1 goes to state 3 with a b and state 2 with an
+	a. Thate 3 goes to state 1 with a b and state 2 with an a
+	and the accepting state qa with a lambda. State 2 has a self
+	loop at b and goes to state one with an a and goes to qa
+	with a lambda.
+	* First state to remove is 3. Starting state s goes to state
+	1 with a lambda, state 1 goes to state 2 with a + ba and
+	state 2 goes back to state 1 with an a. State 1 goes to qa
+	with b and state 2 goes to qa lambda. Professor forgot:
+	state 1 has a self loop with bb and state 2 has a self loop
+	with b
+	* Time to remove state 1. Starting state s goes to 2 with
+	(bb*)(a+ba). state 2 has a self loop with b+a(bb*)(a+ba). S
+	goes to qa with (bb*)b and 2 goes to qa with lambda
+	* How do you decide what to remove? As long as you don't
+	fuck up the starting/accepting states you can remove in
+	whatever order you want.
