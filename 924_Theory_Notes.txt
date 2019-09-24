@@ -1,0 +1,105 @@
+* Office hours
+	* This week moved to Wednesday from 10am-12pm and 2pm-4pm
+	* Next weed added Wednesday from 10am-12pm and 2pm-4pm
+* Midterm
+	* Material for midterm is listed in a Canvas announcement
+	(maybe Canvas email? I can't remember)
+		* NFA
+		* DFA
+		* GNFA
+		* Regular languages
+			* Creating NFA from reg lang
+		* Converting from NFA to DFA stuff
+* Non-regular languages
+	* Some languages can not be represented by any DFA
+		* Consider: B = {0^n 1^n| n >= 0}, these are all
+		binary strings that consist of 0s and 1s such that
+		all of the zeroes preceede the ones.
+	* Tool for proving non-regularity: pumping lemma
+		* There is a pumping lemma for every type of language
+		(regular, context free, turing decidable, etc).
+* Pumping Lemma for Regular Languages
+	* All the strings that belong to a regular language that are
+	sufficiently big have a special property
+		* if a language does not have this property then it is
+		not regular
+	* Property: All such big "enough" strings can be "pumped"
+	and still belong to the language
+		* "Enough" is |s| >= p where p is the "pumping lemma"
+	* Theorem: if A is a regular language then there is a number
+	p (the pumping length), where if s is any string in A with
+	length at least p, then s can be divided into
+					s = xyz
+	such that:
+		* for each i >= 0, x(y^i)z belongs to a
+		* |y| > 0 (y != lambda but x or z can equal lambda)
+		* |xy| <= p 
+	* All three of these must be satisfied, not just one of the
+	three
+	* Proof: Let M_A = (Q, sigma, delta, qo, F_A) be the DFA
+	associated with the regular language A.
+		* Let p = |Q|
+		* Think about a string of length n >= p
+		* S = S1S2S3...Sn-1Sn
+		* Si belongs to Sigma for 1 <= i <= n
+		* As M_A keeps on reading S, it will transition to
+		different states
+		* |S| = n --> n transitions -->
+		* if we write down the sequence of states it is
+		r1, r2, r3, ... , rn+1
+		because r1 = qo, n + 1 >= p + 1 >= p
+		* --> by the pigeonhole principle, at least one of the
+		states is rejected
+		* Let that state appear in positions j and l (j and l
+		first such pair)
+		* Look at 
+		S=S1S2...(Sj-1)Sj(Sj+1)(Sj+2)...(Sl-1)(Sl)(Sl+1)...Sn
+			* x = through Sj-1
+			* y = Sj to Sl-1
+			* Z is Sl to Sn
+		* l <= p + 1
+		* S = 0^p1^p --> xyz = 0^p1^p with |xy| <= p |y| > 0
+		--> y = 0* --> S = 0.000.0 ... ??? I have no clue
+		what's happening
+* Example
+	* B = {0^n(1^n) | n >= 0} // all binary strings with equal
+	amounts of zeroes and ones such that the zeroes preceede the
+	ones, show that b is non regular
+	* Proof: Towards contradiction, assume B is regular such
+	that it has pumping length p. Consider S = 0^p(1^p)
+		* |S| = 2p >= p
+		* By the pumping lemma, we can decompose S into xyz
+		such that |xy| <= p and |y| > 0
+		* y contains only zeroes --> S = 0...00...00..01^p
+			* x = 0...0
+			* y = 0...0
+			* z = 0...01^p
+			* --> xyyz does not belong to A
+		* y contains only ones
+			* xyyz contains more ones than zeroes
+		* y contains both zeroes and ones
+			* xyyz has intermixed zeroes and ones 
+	* Shorter subproof
+		* By the PL, |xy| <= p, therefore y contains only
+		zeroes. y can not contain only zeroes because there
+		would be more zereos in the string than ones.
+* Example
+	* Let C = {w | w contains an equal amount of zeroes and
+	ones}. Show that C is non-regular
+	* Proof 1:
+		* Observe that B = 0*1* intersection C
+		* Towards contradiction, if C is regular then B is
+		also regular but we just proved that B is not regular
+		so C is not regular
+	* Proof 2:
+		* S = 0^p(1^p)
+		* By PL, S = xyz such that
+			* |xy| <= p
+			* |y| > 0
+		* implies that y has only zeroes
+		* Then xyyz = 0...00...00...00...01^p --> too many
+		zeroes in the string
+* Question
+	* Let A be a regular language and let B be a subset of A. Is
+	B a regular language?
+	* Counter example: B = {0^n(1^n)|n>=0}. A = {0,1}*
