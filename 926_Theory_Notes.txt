@@ -1,0 +1,77 @@
+* We will be asked about the pumping lemma on the midterm
+* Pumping Lemma
+	* Let a be a regular language and p be the pumping length 
+	for A. If s belongs to A and |s| >= p, then s = xyz such
+	that:
+		* x(y^i)z for every i >= 0
+		* |xy| <= p
+		* |y| > 0
+* Example
+	* B = {(0^n)(1^n) | n >= 0}
+	* Show that B is non regular
+	* Proof: Towards contradiction, assume that B is regular.
+	* We look at the string s = (0^p)(1^p)
+	* By the pumping lemma, s = xyz
+		* s = 00....00....00....01^p
+			* x = 00....0 = 0^i
+			* y = 0....0 = 0^j
+			* z = 0....01^p = (0^k)(1^p)
+			* i + j + k = p
+			* |y| > 0 --> j > 0 (also j <= p)
+	* Now we look at s' = xyyz, what's the problem?
+		* the number of zeroes in s' > p and the number
+		of ones in s' = p and therefore the number of
+		zeroes and ones are not equal 
+		* s' does not belong to B --> contradiction
+	* Alternate proof:
+		* s = (0^p)(1^p)
+		* s is decomposed to xyz such that |y| > 0
+			* case 1: y contains only zeroes (what we just
+			did)
+			* case 2: y contains only ones --> s'=xyyz has 
+			more ones than zeroes
+			* case 3: y contains both 0's and 1's --> zeroes
+			and ones are intermixed
+* Example
+	* C = {w | w has an equal amount of 0s and 1s}, show that C
+	is not regular
+	* Proof: Towards contradiction, assume that C is regular and
+	therefore has a pumping length of at least p
+	* Let s = (0^p)(1^p) --> repeat previous proof, not the
+	alternate proof though
+	* alternate proof:
+		* B = 0*1* intersection C
+		* A is regular (0*1*)	
+		* We have proved that if L1, L2 are regular languages
+		then so is L1 intersection L2
+		* So, by the previous observation, B has to be regular
+		(assuming C is regular)
+		* But example 1 shows that B is not regular --> so it
+		is a contradiction
+* Someone asked a question and he lost me sorry friends
+* Example
+	* Let F = {ww | w belongs to {0, 1}*}
+	* Show that F is not regular
+	* Towards contradiction, assume that F is regular and has a 
+	pumping length p, therefore the pumping lemma applies to it
+		* s = (0^p)(1^p)(0^p)(1^p), |s| <= p
+		* by the pumping lemma on s, we have that s = xyz st
+			* |xy| <= p
+			* |y| > 0
+			* (0^l)(0^j)(0^k)(1^p)(0^p)(1^p)
+			* s' = xy(y^(p+k))z
+			* |s'| = l + j + (3p+k)j + (3p+k)
+			* --> I'm lost
+			* Somehow find that it's not a concatenation of
+			two strings of the same size
+			* He'll post his notes on canvas...
+	* Now he gives us the damn simpler solution, after I'm
+	already confused as shit
+		* Pick s = (0^p)1(0^p)1
+		* x = (0^l)
+		* y = (0^j)
+		* z = (0^k)1(0^p)1
+		* I'm still confused
+		* End up with more than p zeroes, one, p zeroes, one
+		--> can't end up with two equal parts
+* Yikes I stopped paying attention sorry friends
