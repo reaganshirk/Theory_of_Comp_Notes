@@ -1,0 +1,132 @@
+* Homework 1 Stuff
+	* Problem 1: Set Theory
+		* Is A a subset of B, why? --> No, z is in A but z is
+		not in B
+		* A union B is {x, y}
+		* A cross B = {(x,x), (x,y), (y,x), (y,y), (z,x),
+		(z,y)}
+		* P(B) = {{}, {x}, {y}, {x,y}}
+	* Problem 2: Induction
+		* Go to office hours if you need help with this
+	* Problem 3: Strings and Sequences
+		iteration		starting		appended string
+					a
+		0						b
+		1						 ba
+		2						  baab
+		3						   baababba
+		
+		* Length of string after k iterations is going to be
+		1 + summation of 2^i from 0 to k = 2^(k+1)
+		* Finding the above summation: use S and 2S as a
+		system of equations and subtract S from 2S,
+		cancellations should yield S = 2^(k+1) - 1
+		* 129 = 2^(7) + 1, we start counting from 0 from the
+		index, i.e. the 130th symbol in the sequence is t129
+		so the symbol is a
+	* Problem 4: Drawing state diagrams
+		* L1 = {w | length of w is odd}, Sigma = {1}
+		* Two states: qeven, qodd. qodd is accepting. Given 1
+		qeven will go to qodd, given 1 qodd will go to qeven
+		* L2 = {w | w has at most 2 bs}
+		* 4 states, qo, q1, q2, q3. First three states are
+		accepting that move forward with b and self loop with
+		a. The last state is not accepting and self loops with
+		a,b
+		* L3 = {w | w starts with 1 or ends with 0}
+		* 4 states, qo, q1, q2, q3. qo is starting, q1 and q2
+		are accepting
+		* qo goes to q1 with a 1 and q2 with a 0
+		* q1 has a self loop at 0, 1
+		* q2 has a self loop at 0 and goes to q3 with 1
+		* q3 has a self loop at 1 and goes to q2 with 0
+	* Problem 5: Reading state machines
+		* Defining 5-tuples
+		* L = {w | w has 0110 or 1001 as a substring}
+	* Problem 6: A reg, B reg --> A\B is regular
+		* Repeat the proof that we saw for A union B and
+		A intersect B.
+		* Only difference is with F (the set of accepting
+		states)
+		* Look at the cross product of FA and FB, the region
+		of A that does not include B is the region
+		demonstrating the subtraction of B from A
+		F = {(a,b)|(a,b) in FA cross (QB \ FB)}
+* Homework 2 (the important homework)
+	* Problem 1: Design of NFAs
+		* qo starting state, goes to both q1 and q4 with
+		lambdas
+		* q1 has a self loop at 0 and goes to q2 with a 1
+		* q2 goes to q1 with a 0 and to q3 with a 1
+		* q3 is accepting and self loops at 0,1
+		* q4 is an accepting state and self loops with 1 and
+		goes to q5 with a 0
+		* q5 self loops at 0,1
+		* qo starting state, self loops at 0,1 and goes to q1
+		with 0
+		* q1 goes to q2 with 1
+		* q2 goes to q3 with 0,1
+		* q3 goes to q4 with 0,1
+		* q4 is accepting
+	* Problem 2: NFAs and DFAs
+		* starting and accepting state q1 self loops on 0,
+		goes to q2 with 0
+		* q2 goes to q1 with lambda, 0
+		* L = {w | w is a binary string such that every
+		occurence of 1 is preceded by a 0}
+		* 4 states, empty set, {q1}, {q2}, {q1, q2}
+			* I will be dropping set notation for ease of
+			typing
+		* q1 is starting and accepting, goes to empty set with
+		a 1 and to q1,q2 with a 0. 
+		* q1,q2 is accepting with a self loop at 0, goes to q1
+		with a 1
+		* q2 goes to q1 with a 1, goes to empty set with a 0
+		* Omit state q2 because it has no incoming arrows,
+		only outgoing
+	* Problem 3: Representation
+		* Will describe the state diagram later
+		* The theorem 2.2 is tight up to a factor of 2
+		* DFAs can compute what NFAs do but by using exponentially many more states in the worst case
+	* Problem 4: Regular Expressions
+		* Create the DFA and simplify it to get the regex
+		* ((0+1)0)* (lambda+0+1)
+		* (0+1)* 0
+	* Problem 5: DFAs to Regular Expressions
+		* Convert to a GNFA: Add a new starting and accepting
+		state
+		* Starting state S goes to qo with a lambda
+		* qo goes to accepting state t with a lambda, self
+		loops at 1, and goes to q1 with a 0
+		* q2 goes to t with a lambda and qo with a 0 and to q1
+		with a 1
+		* q1 self loops with a 0 and goes to q2 with a 1
+		* Remove q1
+		* Starting state s goes to qo with lambda
+		* qo self loops with 1, goes to q2 with 00*1, ang goes
+		to t with lambda
+		* q2 self loops with 10*1, goes to qo with 0, and goes
+		to t with lambda
+		* Remove q2
+		* Starting state s goes to qo with lambda
+		* qo goes to t with a lambda+(00*1)(10*1)* and self
+		loops with 1+(00*1)(10*1)*0
+		* Remove qo
+		* s goes to t with:
+		(1+(00*1)(10*1)*0)*(lambda+(00*1)(10*1)*)
+	* Problem 6
+		* Similear to ww example we did in class
+		* L2 = {1^(2n)|n >= 1}, Sigma = {1}
+			* Towards contradiction, we assume that L2 is
+			regular and therefore the pumping lemma applies
+			to it
+			* Let S = 1^(2^p) where p is the pumping length
+			for L2
+			* |S| = 2^p > p
+			* S = xyz such that |xy| <= p and |y| > 0 -->
+			y = 1^j where j is at most p
+			* But then |xyyz| = 2^p + p
+			* The point is 2^p < 2^p + p < 2^p + 2^p = 2^p+1
+			* therefore xyz is not in the language because
+			xyyz is not a perfect power of 2
+* My brain hurts now
