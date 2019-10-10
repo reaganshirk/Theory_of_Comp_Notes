@@ -1,0 +1,108 @@
+* Midterm Review
+	* Problem 1
+		* (a) P(P({})) ?= {{}, {{}}} --> true
+			* Say s = {}, |P(s)| = 1, P(s) = {{}}
+			P(P(s)) = P({{}}) = {{}, {{}}}
+		* (b) A x B = {(1, 2), (2, 2)} and A \circ B = {1z,
+		2z} --> False
+		* (c) lambda is in every language* --> True
+		* (d) True
+		* (e) False
+	* Problem 2
+		* (a) a*+b*
+			* Belongs: lambda, a, aa, aaa, b, bb, bbb, ...
+			* Doesn't Belong: ab, ba, ...
+		* (b) aba + bab
+			* Belongs: aba, bab
+			* Doesn't Belong: lambda, a, b, ba, ab, ...
+		* (c) aa*b
+			* Belongs: b, aab, aaaab, ...
+			* Doesn't Belong: a, ba, ab, aaab, aba, ...
+	* Problem 3
+		* How many different truth tables can we have in 3
+		boolean variables?
+		A	B	C
+		F	F	F
+		F	F	T
+		.	.	.
+		.	.	.
+		.	.	.
+		T	T	T
+			* 2^8 different functions = 256
+	* Problem 4
+		* Convert to GNFA
+			* Start at qo, go to q1 with lambda
+			* q1 self loop with a, go to q2 with b
+			* q2 self loop with a, go to q1 with b, go to q3
+			with lambda
+			* q3 accepts
+		* Remove q2
+			* Start at qo, go to q1 with lambda
+			* q1 self loops with a+ba*b and goes to q3 with
+			ba*
+			* q3 accepts
+		* remove q1
+			* qo goes to q3 with (a+ba*b)*ba*
+			* q3 accepts
+	* Problem 5
+		* (a) L = {w | w=w1w2...wn such that the sum from i=1
+		to n of wi <= 5}
+		* start with accepting state qo. qo goes to q1 with a
+		1, q2 with a 2, and q3 with a 3
+		* q1 goes to q2 with a 1 and q3 with a 2
+		* q2 goes to q3 with a 1
+		* q1 goes to q4 with a 3
+		* q2 goes to q4 with a 2 and q5 with a 3
+		* q3 goes to q4 with a 1, q5 with a 2, q6 with a 3
+		* q4 goes to q5 with a 1, q6 with a 2, 3
+		* q5 goes to q6 with a 1, 2, 3
+		* q6 self loops with 1, 2, 3
+		* all states accept except q6
+		* (b) Sigma = {0, 1}, 1*(001^+)*
+		* start with accepting state qo, self loop on 1 and
+		goes to q1 with a 0
+		* q1 goes to q2 with a 0
+		* q2 goes to q3 with a 1
+		* q3 accepts and self loops on 1, goes back to qo on 1
+		* or...
+		* starting and accepting state qo self loops at 1 and
+		goes to 0 with q1
+		* q1 goes to q2 with 0 
+		* q2 goes back to q0 with 1
+	* Problem 6
+		* Show that L = {ww | w is in Sigma*} is not regular
+		* Towards contradiction, assume that L is regular.
+		Then it has some pumping length p and the pumping
+		lemma applies to any string S in L such that |S| <= p
+		* Make some general observations about strings in the
+		language (if you can)
+			* For example here, first half is equal to the
+			second half
+			* |S| is even (for s in L)
+		* Look at S = 0^p10^p1
+			* s is in L
+			* |S| = p + 1 + p + 1 = 2p + 2 >= p
+		* split S up as S = xyz such that
+			* |xy| <= p
+			* |y| > 0
+			* x = 0...0 (j)
+			* y = 0...0 (k)
+			* z = 0...010^p1 (0...0 = l)
+			* j + k + l = p
+		* look at s' = xyyz
+			* |y| = k = 2r for some r >= 1
+			* s' = 2(p+r+1) 
+		* We have too many 0s now, therefore L is not regular
+	* Problem 7
+		* w = w1w2...wn, we have w^R = wnwn-1,...,w2w1. 
+		A^R = {w^R | w is in A}, show that if A is regular
+		then A^R is regular
+		* We know any regular language has a DFA
+		* Guys I am so zoned out I'm sorry
+		* Reverse the arrows of the DFA that is too small for
+		me to read and now it's an NFA
+		* New starting state q1, w lambda arrows to previous
+		accepting
+		* Someone who got this right: pls send me the answer
+		so I can update my notes because idk what's happening
+		and I didn't get full points on it
