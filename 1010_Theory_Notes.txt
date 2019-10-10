@@ -1,0 +1,119 @@
+* Homework 2 Problem 3
+	* Lk = Sigma*1Sigma^(k-1) for some k > 0
+	* Sigma^(n) = a concatentation of Sigma n times
+	* Sigma = {0, 1}
+	* The first thing we want to show is that there is an NFA
+	N that has (k+1) states accepting Lk
+		* starting state qo, self loop on 0, 1 and goes to
+		q1 with 1
+		* q1 goes to q2 with 0, 1
+		* q2 goes to qk with 0, 1
+		* qk accepts
+	* Show that any DFA that recognizes Lk has m >= 2^k states
+		* Towards contradiction, let us assume that there is
+		a DFA with m states where m < 2^k
+		* DFA M has one starting state, several intermediate
+		states, and several accepting states
+		* Observation 1: All strings with length less than k
+		are rejected --> so if we want strings that can be 
+		accepted or can be rejected, we need to look at
+		strings of length at least k
+		* Observation 2: If we look at strings of length = k, 
+		we have 2^k different such binary strings
+		* By the pigeonhole principle, at least two different
+		binary strings s, t end up in the same state (it can
+		be rejecting or accepting).
+			* If i = 1, they differ in the first bit.
+				* s = 0..., t = 1...
+				* s has 0 k positions from the end
+				* t has 1 k positions from the end
+				* Therefore s is rejected and t is accepted
+				which is a contradiction of the pigeonhole
+				principle
+			* If i != 1
+				* Exand s, t to the same string such that
+				in the end the discrepancy is k positions
+				from the end
+				* I can't read anything that he just
+				wrote...but the proof ends in contradiction
+				* No one will send me a picture of what he 
+				wrote :(
+* Done with regular languages!
+* Time for grammars
+* Context free languages
+	* aa*b is an infinite regular language, but there are
+	languages that don't belong in regular languages
+		* For example, 0^n1^n
+	* We can describe these languages with context free
+	grammars, they are called context free languages
+		* There is a new, more involved pumping lemma for
+		context free languages that take us to decidable
+		languages
+	* DFAs are nicce but some simple languages can't be
+	recognized
+		* Example: L = {0^n1^n | n >= 0}
+	* Context free grammars give us more power for such cases
+	* Applications: specification and compilation of programming 
+	languages
+	* Languages of context-free grammars (CFGs) are called
+	context free languages (CFLs)
+	* Pushdown automata (PDAs) recognize CFLs
+* Context Free Grammars
+	* Example
+		* A --> 0 A 1, A --> B, B --> #
+		* Left side of the arrow is the variable, right side
+		of the arrow is the terminal
+		* A grammar is a collection of substitution rules
+		(productions)
+	* Derivations
+		* We write down the start variable
+		* Find a variable that is written down	 and a rule that
+		starts with that variable
+		* Replace that variable with the right hand side (RHS)
+		of the rule
+		* Repeat until there are no more variables remaining
+	* Example
+		* Grammar 1:
+		A --> 0 A 1
+		A --> B
+		B --> #
+		* Start variable is the first variable
+		* G1 generates 000#111, how do we get here?
+			* Start with A gives 0 A 1 in one step and 00 A
+			11 in another step, 000 A 111 in another step,
+			000 B 111 in another step, then 000 # 111 in the
+			last step
+			* There's a tree that I'll post a picture of in
+			my html notes because I don't know how to paint a
+			word picture of this one
+				* It's called a parse tree
+		* L(G1) = {0^n#1^n | n >= 0}
+	* Formal definition of a context free grammar
+		* A CGF is a 4-tuple (V, Sigma, R, S) where:
+			* V is a finite set of variables 
+			* Sigma is a finite set disjoint from V called
+			the terminals
+			* R is a finite set of rules with each rule being
+			a variable and a string of variables and
+			terminals
+			* S is in V and is the starting variable
+		* We say that uAv yields uWv
+		* We say that u derives V written as u *--> v
+		* if u = v, you don't need to do anything
+		* If a sequence u1u2...uk, then
+		u --> u1 --> u2 --> ... --> uk --> v
+		* the language of the grammar G = (V, sigma, R, S) is
+		{w in Sigma* | S* --> w}
+		* Example
+			* G = ({S}, {a, b}, R, S} where R is the set of
+			rules, S --> aSb, SS, lambda. We can merge rules
+			S --> aSb|SS|lambda (| = or)
+			* What kind of strings does this language
+			generate?
+				* a^nb^n, aababb, all sequences of a's and
+				b's such that if we interpret a as "(" and
+				b as ")" then they are properly nested
+				* Just so everyone else doesn't think what
+				I'm thinking, the () would look like (()())
+				for this example, not ((())) like I was
+				thinking
