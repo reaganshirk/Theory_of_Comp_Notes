@@ -1,0 +1,90 @@
+* Sorry for no notes last week, I was out with a concussion. But
+ya bitch is back now
+* Second midterm: three Thursdays from now (Nov. 8)
+* Equivalence of PDAs and CFGs
+	* Theorem: A language is context free iff some
+	(nondeterministic) pushdown automaton can recognize it
+	* Corollary: Every language that is regular is also context
+	free
+* Non Context Free Languages
+	* Theorem (Pumping Lemma for CFLs): If A is a CFL, then
+	there is a number p (the pumping length) where if s is some
+	string in the language where |s| >= p, then s may be divided
+	into 5 pieces (s = uvxyz) such that:
+		* for each i in {0, 1, 2,...}, uv^ixy^iz is in A
+		* |vy| > 0
+		* |vxy| < p 
+	* Proof idea
+		* Let s be a string in A such that |s| >= p
+		* s has a parse tree because it can be derived by the
+		grammar G for A.
+		* The idea is that the tree is tall enough so that s
+		is long enough 
+		* So the tree must have some long path from the root
+		to some terminal symbol (some leaf)
+		* On this long path some variable has to be repeating
+		(pigeonhole principle)
+	* Proof
+		* Let G be a CFG for A
+		* Let b be the maximum number of symbols (variables or
+		terminals) in the RHS of a rule (assume b > = 2)
+		* In any parse tree using G, a node has <= b children
+		* So at most b leaves are 1 step from the root, at
+		most b^2 leaves are 2 steps from the root, etc
+		* How deep should we go if we have a strong of length
+		L?
+			* Determine b^(h-1) < L = |w| <= b^h -->
+			h-1 < log_b(L) <= h
+		* So the parse tree has to be at least ceil(log_b(L))
+		tall
+		* Set the pumping length p = b^(|v|+1) where |v| is
+		the number of variables in G
+		* If s is in A and |s| >= p, then the parse tree for s
+		must be at least |v|+1 tall
+			* there is a path of length at least |v|+1
+			* in that path we have at least |v|+2 nodes
+			* the path has (|v|+1) nodes
+		* pigeonhole
+			* at least one variable R appears twice
+			* pick R among the lowest |v|+1 variables
+			* divide s into uvxyz as the figure
+				* Top R generates xyz
+				* Lower R generates x
+				* So uv^ixy^iz is in A for i in {0,1,2...}
+		* I can't read anything on the right side of that
+		board, sorry friends. I'm still getting over the
+		concussion
+* Example
+	* Let L = {a^nb^nc^n | n >= 0}, show that L is not context
+	free
+	* Towards contradiction, assume L is context free. Let p be
+	the pumping length for L.
+	* Look at s = a^pb^pc^p, need to show one of the conditions
+	will be violated when either pumping up or pumping down
+	* By condition 2: |vy| > 0 so at least one of v, y is
+	nonempty
+		* case 1: v and y contain one type of symbol, then in
+		the string uv^2xy^2z we do not have an equal amount of
+		all three symbols
+		* case 2: one of v or y contains at least two types of
+		symbols, then the string uv^2xy^2z would have symbols
+		out of order
+		* Either way, we reach a contradiction
+* Example
+	* Show that C = {a^ib^jc^k | 0 <= i <= j <= k} is not a CFL
+	* Proof: 
+		* towards contradiction, assume that C is a CFL and
+		therefore has a pumping length p by the pumping lemma
+		* Look at s = a^pb^pc^p, split s into uvxyz
+		* Case 1: say that v, y are composed of only one type
+		of symbol. Then some symbol among a,b,c will be
+		missing from both
+		* Once again, I can't read anything over there
+			* I'll probably read through his notes and update
+			my own so I don't feel bad for dropping the ball
+* Example
+	* Show that D = {ww | w in {0,1}*} is not a CFL
+	* Note that if you take s = 0^p10^p1 then there is actually
+	a decomposition that doesn't lead you to a contradiction
+	* What does work is 0^p1^p0^p1^p
+		

@@ -1,0 +1,102 @@
+* Example
+	* Show that D = {ww | w in {0, 1}*} is not a CFL
+	* Proof: Towards contradiction, assume D is a CFL
+		* Candidate 1: 0^p10^p1 is not really working...
+		* Candidate 2: s = 0^p1^p0^p1^p
+			* Divide x into uvxyz such that |vxy| <= p
+			* If vxy is to the left of the midpoint of s then
+			uv^2xy^2z has at least one 1 to the right of the
+			new midpoint
+				* if v and y introduce 2m <= p symbols then
+				we shift to the right the original midpoint
+				by m>=1
+			* If vxy is to the right of the original
+			midpoint, then uv^2xy^2z doesn't belong to D
+				* Because now the first half will end in a
+				0 and the second half will end in a 1
+			* If vxy is the modpoint of s, then uvxyz = uxz
+			is the string o^p1^i0^j1^p where j != p and i!=p
+			* In any case, contradiction
+		* One of the difficult proof for CFLs because of all
+		of the midpoint stuff
+* Turing Machines and Church-Turing Thesis
+	* There are basic languages that we cannot recognize
+	* Turing decidable languages are those that always have a
+	yes or no answer
+		* Like regular languages, either the string is
+		accepted or it isn't
+	* Unlimited tape at our disposal as memory
+	* Accept, reject states
+		* We'll probably never draw reject states though
+		because it's assumed that anything that isn't accepted
+		is rejected
+	* The machine may go on forever
+	* Differences with DFAs
+		* We can write on the tape (apart from reading)
+		* The read/write head may move left and right
+		* The tape is infinite
+			* Linz: infinite in both directions
+			* Sipser: infinite only to the right
+		* The special states accept and reject take place
+		immediately
+	* Example
+		* Design a turing machine for testing membership in
+		the language B = {w#w | w is in {0, 1}*}
+			* 011000#0110000
+			  x11000#0110000
+			  x11000#0110000
+			  ... 
+			  x11000#0110000
+			  x11000#x110000
+				* Something about how you cross out the
+				first character and then cross the first
+				character after the # that is the same as
+				the initial character that was crossed out.
+				Not sure why he wrote the same string a
+				whole bunch of times but he did
+	* Definition
+		* A turing machine is a 7-tuple (Q, Sigma, Gamma,
+		delta, qo, qaccept, qreject)
+		* Q = finite set of states
+		* Sigma = input 	alphabet(blank symbol is not in Sigma)
+		* Gamma = the tape alphabet (blank symbol is in Gamma)
+		* delta = transition function
+			* delta: Q x Gamma --> Q cross Gamma cross {L, R}
+		* qo = the start state
+		* qaccept = accepting state
+		* qreject = rejecting state
+	* Computation
+		* Input w = w1w2w3...wn
+			* written on the leftmost end of the tape (rest
+			of tape is filled with blank symbol)
+		* head starts at the leftmost square of the tape
+			* Apply L to the leftmost square of the head in
+			the same square
+		* computation follows the delta function
+		* Computation ends if we reach the accept or reject
+		state
+* Configuration of a turing machine
+	* current state
+	* current tape contents
+	* current head location
+	* example
+		* uqv
+			* u = string, q = state, v = string
+		* means that the turing machine is at state q and the
+		lead is the leftmost symbol in v
+	* Say that configuration C1 yields C2 if the turing machine
+	can legally go from C1 to C2 in one step
+		* uaq_ibv yields uq_jacv if delta(q_i, b)=(q_j, c, L)
+		* start configuration: q_ow
+* Example
+	* Let A = {O^(2^n) | n >= 0}, give a turing machine that
+	decides the language
+	* Solution: M2 = on input w
+		* sweep left to right across the tape, crossing off
+		every other 0	
+		* If in stage 1 and the tape contained a single 0,
+		accept
+		* If in stage 1 and the tape contained more than a
+		single 0 and the number of 0's is odd, reject
+		* Return the head to the left hand end of the tape
+		* Go to step 1

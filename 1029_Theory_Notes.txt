@@ -1,0 +1,65 @@
+* A language is called turing-recognizeable (or recursively
+enumerable) if some turing machine recognizes it
+* A language is ccalled turing-decidable (or recursive) if some
+turing machine decides it
+	* The collection of strings that a turing machine M accepts
+	is the language of M, or the language recognized by M 
+	denoted by L(M)
+	* A language will be decided by M if the turing machine M
+	for any input string w, either accepts w or rejects w (but
+	it can not go on forever)
+* Example
+	* Let A = {O^(2^n)) | n >= 0} --> give a turing machine that
+	decides A
+		* Make sure all 0's
+		* Reject strings of odd length - except 1
+	* Another solution to above problem
+		* Basic arithmetic
+		* Example
+			* introduce a counter, initialize to 0
+			* for every 0, increment the counter by 1
+			* say we do arithmetic in base 2
+			* then in the end our counter should have
+			precisely one 1 and everything else 0
+		* Solution...I think?
+			* M2 = "On input w:
+				* sweep left to right across the tapes,
+				crossing off every other 0
+				* If in stage 1, the tape contained a
+				single 0, then accept. 
+				* If in stage 1, the tape had more than a
+				single 0 and the number of 0's is odd,
+				reject
+				* Return the head to leftmost and ???
+				* Go to state 1
+* I don't know what the fuck this is but I'll type it out
+	* Q = {q1, q2, q3, q4, q5, qaccept, qreject}, Sigma = {0},
+	Gamma = {O, X, square}
+	* starting state q1 goes to q2 with "0 -> _, R"
+	* q2 goes to q3 with "0 -> x, R" and self loops with "x ->
+	R"
+	* q3 goes to q4 with "0 -> R", q5 with "_ -> L", and self
+	loops with "X -> R"
+	* q4 goes to q3 with "0 -> x, R" and self loops with "x ->
+	R"
+	* q5 self loops with "0 -> L" and "_ -> L" and goes to q2
+	with "_ -> R"
+	* q4 goes to qreject with "_ -> R"
+	* q1 goes to qreject with "_ -> R" and "x -> R"
+	* q2 goes to qaccept with "_ -> R"
+* Give a turing machine that decides the language 
+C = {(a^i)(b^j)(c^k) | ixj = k and i, j, k >= 1}
+	* M3 = "On input w:
+		* Scan the input from left to right and determine if
+		it is of the form (a^+)(b^+)(c^+), reject if it is not
+		* return the head to the left-hand end of the tape
+		* cross of an "a" and scan to the right until we find
+		a "b", shuttle between b's and c's, crossing off one
+		of each until all the b's are gone, if we run out of
+		"c" in this process, reject
+		* put the b's back, cross of another "a", repeat the
+		process
+		* If all a's have been crossed off, determine if all
+		c's have been crossed off
+			* if yes, accept
+			* if no, reject
