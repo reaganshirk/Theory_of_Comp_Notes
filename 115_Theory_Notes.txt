@@ -1,0 +1,66 @@
+* Example Turing Machine Configuration
+	* 10q101__ means that the turing machine
+		* is in state q1
+		* on the tape we have the string 1001
+		*the head is located above the 0 which appears to the
+		right of the state
+* For execution
+	* qo1001__
+		* Say delta(qo, 1) = (o, q1, L) -->
+		q10001__ __ __
+	* <M> is some appropriate encoding for a turing machine M
+* Homework 3
+	* Problem 1 part 1:
+		* accepting state qo goes to accepting state q1 with a
+		1
+		* accepting state q1 goes to q2 with a 1
+		* q2 goes to q3 with a 1
+		* qo goes to accepting state qaccept with a 0
+		* q1 goes to accepting state qaccept with a 0
+		* q2 goes to accepting state qaccept with a 0
+		* q3 goes to accepting state qaccept with a 0, 1
+		* qaccept self loops with 0, 1
+	* Problem 1 part 2:
+		* accepting state qo goes to q1 with a 0
+		* q1 goes to q2 with a 1
+		* q2 goes to accepting state qo with lambda, 0
+		* q1 goes to q3 with a 0
+	* Problem 2:
+		* Towards contradiction, assume that L is regular with
+		pumping length p
+		* consider s = 0^p10^p
+		* |s| >= p, |xy| <= p, y != lambda, s = xyz
+		* pump up or down and obtain contradiction
+	* Problem 3
+		* Accepting state qo self loops with a 1 and goes to
+		q1 with a 0
+		* accepting state q1 self loop swith a 1 and goes to
+		q2 with a 0
+		* accepting state q2 self loops with a 1 and goes to
+		q3 with a 0
+		* q3 self loops on 0, 1
+			S -> 0A|1S|lambda
+			A -> 0B|1A|lambda
+			B -> 0C|1B|lambda
+			C -> 0C|1C
+	* Problem 4
+		* Binary strings starting with 0 and ending with 1
+		* qo goes to q1 with a 0
+		* q1 self loop siwth 0, 1 and goes to accepting state
+		q2 with 1
+		* s -> UoX
+		  x -> Uo1X|1
+		  Uo -> 0
+		  Uo1 -> 0|1
+		* Not ambiguous, formally with induction on 
+		w = 0w1w2...wn
+		such that wn = 1 and wi is in {0, 1} for i in the
+		natural numbers
+	* Problem 5
+		* Q = {qo, q1, q2}
+		* Sigma = {0, 1}
+		* Gamma = {0, 1, $}
+		* qo starting state
+		* F = {qo}
+		* I can't see that big chart thing...sorry guys
+* I totally zoned out... he was only talking about homework solutions though
