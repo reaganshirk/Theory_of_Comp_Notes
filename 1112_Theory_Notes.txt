@@ -1,0 +1,50 @@
+* Final will be cumulative 
+* Midterm 2 Solutions
+	* Problem 1
+		* True
+		* True
+		* True
+		* False
+		* True
+	* Problem 2
+		* Derivation: Start with S and show each step
+			* S -> LaR -> aAaR -> abaR -> abaDa -> ababa
+			* S -> LaR -> AaaR -> baaR -> baaaD -> baaab
+	* Problem 3
+		* R1 -> aR1 | bR2
+		  R2 -> aR2 | bR1 | lambda
+	* Problem 4
+		* Towards contradiction, assume B is a context free
+		language, therefore the pumping lemma applies to it.
+		B has pumping length p
+		* Look at S = (0^p)(1^2p)(0^p), then |S| = 4p >= p and
+		S is in B
+			* S = uvxyz such that |vxy| <= p and |vy| > 0
+			* pump up and S is no longer in B
+	* Problem 5
+		* DFA accepts binary strings of even length
+		* Accepted: lambda, 0001, 1011, 0000, 0101, ...
+		* Not accepted: 0, 1, 000, 001, 010, 011, 100, ...
+		* S -> 00S | 01S | 10S | 11S | lambda
+	* Problem 6
+		* There are n+1 ways to split the string w into 2
+		parts
+		* Feed each part to the respective turing machines for
+		A and B
+			* If both MA and MB accept, accept
+			* Otherwise try another split
+		* If every split is rejected, reject
+	* Problem 7
+		* lambda goes to qreject following y -> y, L for all y
+		in Gamma \ {0}
+		* 10 goes to qreject following the path y -> y, L for
+		all y in Gamma \ {0}
+		* 0110 is rejected, I'll update notes later
+		* 00011 is accepted, I'll update notes later
+		* Accepts 0+1+
+		* Upon acceptance, convert every 0 to a 1
+		* Upon rejection:
+			* If the string starts with a 1 or is lambda,
+			then it is left unchanged
+			* If the strings starts with a 0, then the first
+			0 will be substituted with 0bar
