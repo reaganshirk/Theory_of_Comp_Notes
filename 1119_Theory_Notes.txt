@@ -1,0 +1,99 @@
+* A language is co-Turing recognizable if it is the complement of
+some turing-recognizable language
+	* The language complement is {w in Sigma* | w does not
+	belong to the language}
+	* Theorem: A is a decidable language iff L is turing
+	recognizable and co-turing recognizable
+	* Proof idea: A decidable means that there exists a turing
+	machine M that halts on every input w (it either accepts or
+	rejects)
+		* Is A recognizable? Yes.
+		* Is A co-recognizable? Yes.
+	* Simulate turing machine ML and MLcomplement and interweave
+	them, eventually one of them will accept
+		* If ML accepts, accept
+		* If MLcomplement accepts, reject
+	* So regardless of the input w, our turing machine will halt
+	and decide w in A
+	* Corollary: ATM = {<M, w> | M is a turing machine that
+	accepts w}, ATMcomplement = {phi | phi is not in <M, w>
+	where M is a turing machine that accepts w}
+		* ATM is recognizable, ATMcomplement is not
+* Undecidable Problems and Reductions
+	* A reduces to B so solving B implies a solution to A
+	* Does solving A imply a solution for B?
+		* Not always
+	* Saying A reduces to B implies that A reduces to a "harder"
+	problem
+		* Example: Say A is the problem of trying to measuer
+		the area of a rectangle. Say B is the problem of
+		trying to measure all of the sides.
+			* A is considered "easier" because you can't
+			assume what B is if you have A. However, you can
+			assume what A is if you have B which makes B
+			harder despite the fact that it's a reduction
+	* Reduction != easier, reduction = you have the means to
+	solve the problem
+	* Intuitively: if we have two problems A and B and we want
+	to show:
+		* A is easy: A reduces to some problem B that is easy
+		* A is hard: B (hard) reduces to A
+	* We have a problem P- show that P is "hard" 
+		* Find a problem A and reduce it to P
+	* Show that P is "easy"
+		* Find a problem B and reduce P to B
+	* Reduction: A <= pB A reduces to B with polynomial time
+	reduction, A <= mB A reduces to B with a mapping reduction
+	* Theorem: haltTM = {<M, w> | M is a turing machine that
+	halts on input w}
+		* Proof: Reduce ATM to haltTM
+		* Towards contradiction, assume that haltTM is
+		decidable. Then there is a turing machine R that
+		decides haltTM. 
+		* Let S be a turing machine such that on input <M, w>
+		it does the following:
+			* Run R on input <M, w>
+				* If rejected --> M loops forever on w -->
+				<M, w> does not belong to ATM
+				* If accepted --> M halts on w, continue
+				onto step 2
+			* Step 2: Run M on w, M will halt because of
+			above line
+				* If accepted --> <M, w> is in ATM
+				* If rejected --> <M, w> is not in ATM
+			* In any case, we decide ATM
+			* ATM is not decideable --> contradiction
+* The Post Correspondence Problem
+	* Theorem: PCP = {<P> | P is an instance of the post
+	correspondence problem that has a macth}
+	* This problem is undecidable
+	* Is it recognizable? Yes.
+* Rice's Theorem
+	* Let P be a property about all the languages recognized by
+	a turing machine such that:
+		* P is "non-trivial" (means that some turing machines
+		recognize the language with this property but not all
+		turing machines)
+		* Whenever L(M1) = L(M2) for turing machines M1, M2
+		then both M1 and M2 have the property P or neither of
+		them have it
+		* Then, LP= {<M> | M is a turing machine such that the
+		language recognized by M has property P} is
+		undecidable
+	* Proof Idea: proof by contradiction
+		* Towards contradiction, suppose there is a turing
+		machine R that decides LP
+		* By contradiction, sicne R is non-trivial, there are
+		turing machines Mp, M!p such that L(Mp) has property P
+		and L(M!p) does not have property P
+			* We assume we have access to these two machines
+		* Reduce ATM to LP, eventually our argument depends on 
+		whether or not the language Lphi = phi has the
+		property P or not
+		* Construct a turing machine S such that
+			* L(S) = {Lphi if M does not accept w, {L(Mp) if
+			M accepts w and Lphi does not have property P,
+			L(M!p) if M accepts 2 and Lphi does have property
+			P}}
+		* Feed <S> into R --> R tells us if L(S) has the
+		property P and, based on that, decides ATM
