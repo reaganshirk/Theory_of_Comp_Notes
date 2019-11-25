@@ -1,0 +1,109 @@
+* Rice's Theorem
+	* Let P be a property about the language recognized by a
+	turing machine, such that:
+		* P is non-trivial [Some, but not all, turing machines
+		recognize a language that has this property]
+		* Whenever L(M1) = L(M2) for turing machines M1, M2
+		either both L(M1) and L(M2) have the property P or
+		neither of them do 
+	* Then, the language 
+	LP = {<M> | M is a turing machine such that L(M) has the
+	property P} is undecidable
+	* Proof Idea:
+		* Assume there is a turing machine R that decides LP
+		* Reduce ATM to LP
+		* How:
+			* Construct another turing machine S and use R to
+			see what's going on with L(S)
+				* i.e. does L(S) have the property P?
+			* Regardless, we will reach a contradiction
+				* We will use Lphi = phi in the proof which
+				may or may not have the property P
+		* S = On input x:
+			* Ignore x and instead run M on input w until M
+			accepts
+				* If M rejects, ignore and rerun M on input
+				w until it accepts
+				* If M loops forever on w, nothing you can
+				do fam
+				* Otherwise, M accepted w
+			* Now look at Lphi and check if it has the
+			property P
+				* If Lphi has the property P, then simulate
+				M!P on input x and accept if the simulation
+				accepts
+				* If Lphi does not have the property P,
+				simulate MP on input x and accept if MP
+				accepts x
+		* In other wrods
+			* M accepts w --> L(S) = L(M!P) when Lphi has P
+			* M accepts w --> L(S) = L(MP) when Lphi does not
+			have P
+			* M does not accept w --> L(S) = Lphi
+* Feed <S> into R
+	* So, if R(<S>) = accept --> L(S) does have P
+		* If Lphi has the property --> M does not accept w, so
+		for ATM, just reject <M, w>
+		* If Lphi does not have the property --> L(S) =
+		L(MP) --> M accepts w --> <M, w> is not in ATM
+	* If R(<S>) rejects, then pretty much same story gives
+	contradiction
+* Fix some property P (e.g. P is equivalent to a regular
+language) Lphi = phi is regular --> Lphi has the property P. Say
+we want to know if a specific <M, w> is in ATM
+	* S = On input x
+		* There exists ???? x
+			* Run M on w
+			* If M accepts w, go to next step. Otherwise loop
+			forever
+		* Run M!P on input x and if M!P accepts x, then S
+		accepts x
+	* Two situations
+		* M accepts w
+			* We continue past step 1 --> L(S) = L(M!P) -->
+			L(S) does not have the property --> had we fed S
+			into R, we would get reject
+		* M doesn't accept w
+			* We loop in step 1 forever --> L(S) = Lphi --> S
+			has the property --> Had we fed S into R, we
+			would get accept
+			* Why is this a contradiction? 
+				* I totally missed the explination, halp
+* Elements of Complexity Theory
+	* Definition: Let t: N -> R^+ be a function. Define the
+	complexity class, TIME(t(n)) to be the collection of all
+	languages that are decidable by an O(t(n)) deterministic
+	turing machine. NTIME(t(n)) defined over nondeterministic
+	turing machines
+	* Define the complexity class P:
+		* All the languages that you can decide with a
+		deterministic turing machine in polynomial time. In
+		other words:
+		P = Union for all k of TIME(n^k)
+	* Define the complexity class NP:
+		* All the languages that you can decide with a
+		nondeterministic turing machine in polynomial time. In
+		other words:
+		NP = Union for all k of NTIME(n^k)
+	* Complexity theory cares about decidable languages
+	* Partition the decidable languages into different classes
+		* Examples: 
+			* Algorithms/Turing machines (conceptually
+			the same thing) that decide a language in
+			polynomial	time
+			* Nondeterministic turing machines that decide a
+			language in polynomial time
+			* Turing machines that decide languages using
+			poly(|w|) space where w is the input
+			* Shit that does shit in exponential time,
+			logarithmic time, whatever fucking time you want
+* Don't know what tf this is but here we go
+	* We want to understand the computational resources (time,
+	space) that are needed in order to solve certain problems
+		* related questions: deterministic vs
+		nondeterministic, deterministic vs randomized
+	* Big O definition is taking me back to data structures
+		* Let f, g: N -> R 
+		* We say that f(n) = O(g(n)) if we have a positive
+		integer c, n_o exist such that for every n >= n_o,
+		f(n) <= cg(n)
